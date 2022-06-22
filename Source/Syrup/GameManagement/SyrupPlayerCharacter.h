@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Components/SphereComponent.h"
 #include "Syrup/GameManagement/InteractInterface.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "SyrupPlayerCharacter.generated.h"
 
 class APlant;
@@ -79,6 +80,12 @@ private:
 	 */
 	UFUNCTION()
 	void MoveDirection(FVector Direction, float Scale);
+
+	/**
+	 * Moves the player to the cursor location
+	 */
+	UFUNCTION()
+	void MoveToCursorLocation();
 
 	/* /\ General Movement /\ *\
 	\* ---------------------- */
@@ -205,6 +212,7 @@ private:
 	/* /\ Interaction /\ *\
 	\* ----------------- */
 
+	void TestOfStupidity(int Helloeth);
 };
 
 /* /\ ===================== /\ *\

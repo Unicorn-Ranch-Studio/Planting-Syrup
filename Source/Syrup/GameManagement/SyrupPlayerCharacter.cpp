@@ -45,6 +45,7 @@ void ASyrupPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	PlayerInputComponent->BindAxis("MoveForward", this, &ASyrupPlayerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASyrupPlayerCharacter::MoveRight);
 	PlayerInputComponent->BindAction("Interact", EInputEvent::IE_Pressed, this, &ASyrupPlayerCharacter::InteractPressed);
+	PlayerInputComponent->BindAction("MoveToCursorLocation", EInputEvent::IE_Released, this, &ASyrupPlayerCharacter::MoveToCursorLocation);
 }
 
 /**
@@ -96,6 +97,20 @@ void ASyrupPlayerCharacter::MoveRight(float Scale)
 void ASyrupPlayerCharacter::MoveDirection(FVector Direction, float Scale)
 {
 	AddMovementInput(Direction, Scale);
+}
+
+/**
+ * Moves the player to the cursor location
+ */
+void ASyrupPlayerCharacter::MoveToCursorLocation()
+{
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+
+	FHitResult HitResult;
+
+	PlayerController->GetHitResultUnderCursorByChannel(ETraceTypeQuery::TraceTypeQuery1, false, HitResult);
+
+	UAIBlueprintHelperLibrary::SimpleMoveToLocation(PlayerController, HitResult.Location);
 }
 
 /* /\ General Movement /\ *\
@@ -230,6 +245,9 @@ void ASyrupPlayerCharacter::InteractPressed()
 
 }
 
+void ASyrupPlayerCharacter::TestOfStupidity(int Hello)
+{
+}
 /* /\ Interaction /\ *\
 \* ----------------- */
 
